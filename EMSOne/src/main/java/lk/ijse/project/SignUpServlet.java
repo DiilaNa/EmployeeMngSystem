@@ -2,11 +2,13 @@ package lk.ijse.project;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -45,30 +47,38 @@ public class SignUpServlet extends HttpServlet {
         }
     }
 
-    /*@Override
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ObjectMapper mapper = new ObjectMapper();
-        Map<String, String> event = mapper.readValue(req.getInputStream(), Map.class);
+        Map<String, String> user = mapper.readValue(req.getInputStream(), Map.class);
+
+
+        ServletContext sc = req.getServletContext();
+        BasicDataSource dataSource = (BasicDataSource) sc.getAttribute("ds");
+
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/employeeManagement", "root", "Ijse@1234");
-
+            Connection connection = ds.getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO event (name,email, password) VALUES (?, ?, ?)"
+                    "INSERT INTO user (name,address, password) VALUES (?, ?, ?)"
             );
-            stmt.setString(1, event.get("name"));
-            stmt.setString(2, event.get("email"));
-            stmt.setString(3, event.get("password"));
+            stmt.setString(1, user.get("name"));
+            stmt.setString(2, user.get("address"));
+            stmt.setString(3, user.get("password"));
 
             int rows = stmt.executeUpdate();
             resp.setContentType("application/json");
+            if (rows>0){
+                resp.setStatus(200);
+            }else {
+                resp.setStatus(500);
+            }
             mapper.writeValue(resp.getWriter(), rows);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
 
     @Override
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
