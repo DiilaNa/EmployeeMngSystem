@@ -5,145 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-        }
-
-        .signin-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            width: 100%;
-            max-width: 450px;
-        }
-
-        .card-header {
-            background: transparent;
-            border-bottom: none;
-            text-align: center;
-            padding: 2rem 2rem 1rem;
-        }
-
-        .signin-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 0.5rem;
-        }
-
-        .signin-subtitle {
-            color: #6c757d;
-            font-weight: 300;
-        }
-
-        .card-body {
-            padding: 1rem 2rem 2rem;
-        }
-
-        .form-label {
-            font-weight: 500;
-            color: #495057;
-            margin-bottom: 0.5rem;
-        }
-
-        .form-control {
-            border-radius: 12px;
-            padding: 0.75rem 1rem;
-            border: 2px solid #e9ecef;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-            transform: translateY(-2px);
-        }
-
-        .form-text {
-            font-size: 0.75rem;
-            color: #6c757d;
-        }
-
-        .form-check-input:checked {
-            background-color: #667eea;
-            border-color: #667eea;
-        }
-
-        .form-check-input:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
-        }
-
-        .btn-signin {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-            border-radius: 12px;
-            padding: 0.75rem 1.5rem;
-            font-weight: 600;
-            font-size: 1rem;
-            color: white;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-
-        .btn-signin:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-            color: white;
-        }
-
-        .btn-signin:active {
-            transform: translateY(0);
-        }
-
-        .forgot-password {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-
-        .forgot-password a {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        .forgot-password a:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
-
-        @media (max-width: 576px) {
-            .signin-card {
-                margin: 1rem;
-                border-radius: 15px;
-            }
-
-            .card-header {
-                padding: 1.5rem 1.5rem 0.5rem;
-            }
-
-            .card-body {
-                padding: 0.5rem 1.5rem 1.5rem;
-            }
-
-            .signin-title {
-                font-size: 1.75rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="../css/SignIn.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -166,19 +28,20 @@
                             <input type="password" class="form-control" id="password" placeholder="Enter your password">
                         </div>
 
-                       <!-- <div class="mb-3 form-check">
+                        <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="remember">
                             <label class="form-check-label" for="remember">
                                 Remember me
                             </label>
-                        </div>-->
+
+                        </div>
+
 
                         <button type="button" class="btn btn-signin" id="signIN">Sign In</button>
+                        <div class="forgot-password">
+                            <a href="#">Dont Have an Account?</a>
+                        </div>
                     </form>
-
-                    <div class="forgot-password">
-                        <a href="#">Forgot your password?</a>
-                    </div>
                 </div>
             </div>
         </div>

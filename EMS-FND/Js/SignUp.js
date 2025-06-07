@@ -1,3 +1,20 @@
+/*------------Pass word Eye Icon Toggle---------------------*/
+function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.querySelector('.password-toggle');
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('fa-eye');
+        toggleIcon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('fa-eye-slash');
+        toggleIcon.classList.add('fa-eye');
+    }
+}
+
+/*------------------Save BTN Action--------------------------------*/
 $('#saveBTN').click(function () {
     const event = {
         name: $('#name').val(),
@@ -10,7 +27,7 @@ $('#saveBTN').click(function () {
         contentType: 'application/json',
         data: JSON.stringify(event),
         success: function (response) {
-           /* $('#getAllEvents').click();*/
+            $('#getAllEvents').click();
             Swal.fire({
                 position: "center",
                 icon: "success",
