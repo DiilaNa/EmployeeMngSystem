@@ -34,7 +34,7 @@ public class SignUpServlet extends HttpServlet {
             while (resultSet.next()) {
                 Map<String, String> event = new HashMap<String, String>();
                 event.put("name", resultSet.getString("name"));
-                event.put("address", resultSet.getString("address")); /*email address*/
+                event.put("email", resultSet.getString("email"));
                 event.put("password", resultSet.getString("password"));
                 elist.add(event);
             }
@@ -60,10 +60,10 @@ public class SignUpServlet extends HttpServlet {
         try {
             Connection connection = ds.getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO user (name,address, password) VALUES (?, ?, ?)"
+                    "INSERT INTO user (name,email, password) VALUES (?, ?, ?)"
             );
             stmt.setString(1, user.get("name"));
-            stmt.setString(2, user.get("address"));
+            stmt.setString(2, user.get("email"));
             stmt.setString(3, user.get("password"));
 
             int rows = stmt.executeUpdate();

@@ -1,7 +1,7 @@
 $('#saveBTN').click(function () {
     const event = {
         name: $('#name').val(),
-        address: $('#email').val(),
+        email: $('#email').val(),
         password: $('#password').val(),
     };
     $.ajax({

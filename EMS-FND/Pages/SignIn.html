@@ -3,15 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Authentication</title>
+    <title>Sign In</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
         body {
             font-family: 'Poppins', sans-serif;
@@ -20,427 +15,181 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            transition: all 0.5s ease;
+            padding: 1rem;
         }
 
-        .auth-container {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            height: 600px;
-            display: flex;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        .signin-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
             border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .form-section {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            padding: 60px 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.5s ease;
-            position: relative;
-        }
-
-        .welcome-section {
-            flex: 1;
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
-            backdrop-filter: blur(20px);
-            padding: 60px 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .welcome-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
+            max-width: 450px;
         }
 
-        .form-header {
-            margin-bottom: 40px;
+        .card-header {
+            background: transparent;
+            border-bottom: none;
             text-align: center;
-            position: relative;
-            z-index: 2;
+            padding: 2rem 2rem 1rem;
         }
 
-        .form-title {
-            font-size: 32px;
+        .signin-title {
+            font-size: 2rem;
             font-weight: 700;
-            color: white;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            color: #667eea;
+            margin-bottom: 0.5rem;
         }
 
-        .form-subtitle {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
+        .signin-subtitle {
+            color: #6c757d;
             font-weight: 300;
         }
 
-        .welcome-title {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .welcome-text {
-            font-size: 18px;
-            margin-bottom: 30px;
-            opacity: 0.9;
-            line-height: 1.6;
-            position: relative;
-            z-index: 2;
-        }
-
-        .switch-btn {
-            padding: 15px 30px;
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            position: relative;
-            z-index: 2;
-        }
-
-        .switch-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-            transform: translateY(-2px);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-            position: relative;
+        .card-body {
+            padding: 1rem 2rem 2rem;
         }
 
         .form-label {
-            display: block;
-            margin-bottom: 8px;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
+            color: #495057;
+            margin-bottom: 0.5rem;
         }
 
-        .form-input {
-            width: 100%;
-            padding: 16px 20px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+        .form-control {
             border-radius: 12px;
-            font-size: 16px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e9ecef;
+            font-size: 1rem;
             transition: all 0.3s ease;
-            outline: none;
-            font-family: 'Poppins', sans-serif;
         }
 
-        .form-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .form-input:focus {
-            border-color: rgba(255, 255, 255, 0.6);
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
             transform: translateY(-2px);
         }
 
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 30px;
+        .form-text {
+            font-size: 0.75rem;
+            color: #6c757d;
         }
 
-        .checkbox-input {
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 4px;
-            appearance: none;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.1);
+        .form-check-input:checked {
+            background-color: #667eea;
+            border-color: #667eea;
         }
 
-        .checkbox-input:checked {
-            background: white;
-            border-color: white;
+        .form-check-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
         }
 
-        .checkbox-input:checked::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #667eea;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .checkbox-label {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.8);
-            cursor: pointer;
-            user-select: none;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 18px;
-            background: white;
-            color: #667eea;
+        .btn-signin {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
             border-radius: 12px;
-            font-size: 16px;
+            padding: 0.75rem 1.5rem;
             font-weight: 600;
-            cursor: pointer;
+            font-size: 1rem;
+            color: white;
+            width: 100%;
             transition: all 0.3s ease;
-            font-family: 'Poppins', sans-serif;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
         }
 
-        .submit-btn:hover {
+        .btn-signin:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            color: white;
         }
 
-        .submit-btn:active {
+        .btn-signin:active {
             transform: translateY(0);
-        }
-
-        .help-text {
-            font-size: 12px;
-            color: rgba(255, 255, 255, 0.6);
-            margin-top: 6px;
         }
 
         .forgot-password {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 1.5rem;
         }
 
         .forgot-password a {
-            color: rgba(255, 255, 255, 0.8);
+            color: #667eea;
             text-decoration: none;
-            font-size: 14px;
+            font-size: 0.9rem;
             transition: color 0.3s ease;
         }
 
         .forgot-password a:hover {
-            color: white;
+            color: #764ba2;
+            text-decoration: underline;
         }
 
-        /* Page States */
-        .auth-container.signup-mode .form-section {
-            order: 2;
-        }
-
-        .auth-container.signup-mode .welcome-section {
-            order: 1;
-        }
-
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .auth-container {
-                flex-direction: column;
-                height: auto;
-                max-width: 400px;
+        @media (max-width: 576px) {
+            .signin-card {
+                margin: 1rem;
+                border-radius: 15px;
             }
 
-            .form-section,
-            .welcome-section {
-                padding: 40px 30px;
+            .card-header {
+                padding: 1.5rem 1.5rem 0.5rem;
             }
 
-            .welcome-section {
-                order: 1 !important;
-                min-height: 200px;
+            .card-body {
+                padding: 0.5rem 1.5rem 1.5rem;
             }
 
-            .form-section {
-                order: 2 !important;
-            }
-
-            .form-title,
-            .welcome-title {
-                font-size: 28px;
-            }
-
-            .welcome-text {
-                font-size: 16px;
-            }
-        }
-
-        /* Animation Classes */
-        .slide-in {
-            animation: slideIn 0.5s ease-out;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
+            .signin-title {
+                font-size: 1.75rem;
             }
         }
     </style>
 </head>
 <body>
-<div class="auth-container" id="authContainer">
-    <!-- Sign In Page -->
-    <div class="page active" id="signin-page">
-        <div class="form-section">
-            <div class="form-header">
-                <h1 class="form-title">Welcome Back</h1>
-                <p class="form-subtitle">Sign in to your account</p>
+<div class="container-fluid">
+    <div class="row min-vh-100 align-items-center justify-content-center">
+        <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
+            <div class="card signin-card mx-auto">
+                <div class="card-header">
+                    <h1 class="signin-title">Welcome Back</h1>
+                    <p class="signin-subtitle">Sign in to your account</p>
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your Email">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                        </div>
+
+                       <!-- <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label" for="remember">
+                                Remember me
+                            </label>
+                        </div>-->
+
+                        <button type="button" class="btn btn-signin" id="signIN">Sign In</button>
+                    </form>
+
+                    <div class="forgot-password">
+                        <a href="#">Forgot your password?</a>
+                    </div>
+                </div>
             </div>
-
-            <form id="signinForm">
-                <div class="form-group">
-                    <label for="signin-email" class="form-label">Email Address</label>
-                    <input
-                            type="email"
-                            class="form-input"
-                            id="signin-email"
-                            placeholder="Enter your email"
-                            required
-                    >
-                    <div class="help-text">We'll never share your email with anyone else.</div>
-                </div>
-
-                <div class="form-group">
-                    <label for="signin-password" class="form-label">Password</label>
-                    <input
-                            type="password"
-                            class="form-input"
-                            id="signin-password"
-                            placeholder="Enter your password"
-                            required
-                    >
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" class="checkbox-input" id="remember">
-                    <label class="checkbox-label" for="remember">Remember me</label>
-                </div>
-
-                <button type="submit" class="submit-btn">Sign In</button>
-            </form>
-
-            <div class="forgot-password">
-                <a href="#" id="forgotLink">Forgot your password?</a>
-            </div>
-        </div>
-
-        <div class="welcome-section">
-            <h2 class="welcome-title">Hello, Friend!</h2>
-            <p class="welcome-text">
-                Enter your personal details and start your journey with us today.
-            </p>
-            <button class="switch-btn" onclick="switchToSignup()">Sign Up</button>
-        </div>
-    </div>
-
-    <!-- Sign Up Page -->
-    <div class="page" id="signup-page">
-        <div class="welcome-section">
-            <h2 class="welcome-title">Welcome Back!</h2>
-            <p class="welcome-text">
-                To keep connected with us please login with your personal info.
-            </p>
-            <button class="switch-btn" onclick="switchToSignin()">Sign In</button>
-        </div>
-
-        <div class="form-section">
-            <div class="form-header">
-                <h1 class="form-title">Create Account</h1>
-                <p class="form-subtitle">Join us today</p>
-            </div>
-
-            <form id="signupForm">
-                <div class="form-group">
-                    <label for="signup-name" class="form-label">Full Name</label>
-                    <input
-                            type="text"
-                            class="form-input"
-                            id="signup-name"
-                            placeholder="Enter your full name"
-                            required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-email" class="form-label">Email Address</label>
-                    <input
-                            type="email"
-                            class="form-input"
-                            id="signup-email"
-                            placeholder="Enter your email"
-                            required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="signup-password" class="form-label">Password</label>
-                    <input
-                            type="password"
-                            class="form-input"
-                            id="signup-password"
-                            placeholder="Create a password"
-                            required
-                    >
-                </div>
-
-                <div class="checkbox-group">
-                    <input type="checkbox" class="checkbox-input" id="terms" required>
-                    <label class="checkbox-label" for="terms">I agree to the Terms & Conditions</label>
-                </div>
-
-                <button type="submit" class="submit-btn">Create Account</button>
-            </form>
         </div>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa"
+        crossorigin="anonymous"></script>
+<script src="jquery-3.7.1.min.js"></script>
+<script type="module" src="../Js/SignIn.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>
