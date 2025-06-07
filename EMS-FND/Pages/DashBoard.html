@@ -20,31 +20,31 @@
     </button>
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active" href="#" onclick="showSection('dashboard')">
+            <a class="nav-link active" href="#dashboardSection" data-section="dashboardSection">
                 <i class="fas fa-chart-line me-2"></i>
                 <span>Dashboard</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" onclick="showSection('employees')">
+            <a class="nav-link" href="#employeesSection" data-section="employeesSection">
                 <i class="fas fa-users me-2"></i>
                 <span>Employees</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" onclick="showSection('profile')">
+            <a class="nav-link" href="#profileSection" data-section="profileSection">
                 <i class="fas fa-user me-2"></i>
                 <span>Profile</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" onclick="showSection('reports')">
+            <a class="nav-link" href="#reportsSection" data-section="reportsSection">
                 <i class="fas fa-chart-bar me-2"></i>
                 <span>Reports</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#" onclick="showSection('settings')">
+            <a class="nav-link" href="#settingsSection" data-section="settingsSection">
                 <i class="fas fa-cog me-2"></i>
                 <span>Settings</span>
             </a>
@@ -55,7 +55,7 @@
 <!-- Main Content -->
 <div class="main-content" id="mainContent">
     <!-- Top Navbar -->
-    <nav class="top-navbar d-flex justify-content-between align-items-center">
+    <div id="topNavBar" class="top-navbar d-flex justify-content-between align-items-center">
         <div>
             <h4 class="mb-0" id="pageTitle">Dashboard</h4>
             <small class="text-muted">Welcome back, Admin</small>
@@ -75,10 +75,10 @@
                 </ul>
             </div>
         </div>
-    </nav>
+    </div>
 
     <!-- Dashboard Section -->
-    <div id="dashboardSection" class="container-fluid">
+    <div id="dashboardSection" class="section-content">
         <div class="row g-4 mb-4">
             <div class="col-xl-3 col-md-6">
                 <div class="stats-card">
@@ -135,7 +135,7 @@
     </div>
 
     <!-- Employees Section -->
-    <div id="employeesSection" class="container-fluid" style="display: none;">
+    <div id="employeesSection" class="section-content" style="display: none;">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h4>Employee Management</h4>
             <button class="btn btn-primary" onclick="showAddEmployeeModal()">
@@ -158,7 +158,7 @@
     </div>
 
     <!-- Profile Section -->
-    <div id="profileSection" class="container-fluid" style="display: none;">
+    <div id="profileSection" class="section-content" style="display: none;">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="stats-card">
@@ -217,7 +217,7 @@
     </div>
 
     <!-- Reports Section -->
-    <div id="reportsSection" class="container-fluid" style="display: none;">
+    <div id="reportsSection" class="section-content" style="display: none;">
         <div class="row">
             <div class="col-12">
                 <div class="stats-card">
@@ -232,7 +232,7 @@
     </div>
 
     <!-- Settings Section -->
-    <div id="settingsSection" class="container-fluid" style="display: none;">
+    <div id="settingsSection" class="section-content" style="display: none;">
         <div class="row">
             <div class="col-12">
                 <div class="stats-card">
@@ -314,6 +314,8 @@
     </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="../Js/DashBoard.js"></script>
 </body>
 </html>
