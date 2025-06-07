@@ -21,20 +21,32 @@ $('#saveBTN').click(function () {
         email: $('#email').val(),
         password: $('#password').val(),
     };
+    if (!event.name || !event.email || !event.password) {
+        Swal.fire({
+            icon: "warning",
+            title: "Missing Info",
+            text: "Please fill in all fields",
+        });
+        return;
+    }
+
     $.ajax({
         url: 'http://localhost:8080/EMSOne_Web_exploded/signup',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(event),
         success: function (response) {
-            $('#getAllEvents').click();
             Swal.fire({
                 position: "center",
                 icon: "success",
-                title: "Your work has been Saved",
-                showConfirmButton: false,
-                timer: 1500
-            });
+                title: "Successfully SignUP",
+                showConfirmButton: true,
+            }).then((result)=>{
+                if (result.isConfirmed){
+                    window.location.href = '../Pages/SignIn.html'
+                }
+
+            })
         },
         error: function () {
             Swal.fire({

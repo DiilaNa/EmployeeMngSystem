@@ -1,11 +1,7 @@
-
-
 $("#signIN").click(() => {
 
     let email = $("#email").val();
     let password = $("#password").val();
-    console.log(email)
-    console.log(password)
 
     $.ajax({
         url: "http://localhost:8080/EMSOne_Web_exploded/signIn",
@@ -14,13 +10,15 @@ $("#signIN").click(() => {
         data: JSON.stringify({email: email, password: password}),
         success: function(resp) {
             if(resp === "Success") {
-                console.log("success whotto")
                 Swal.fire({
+                    position: "center",
                     icon: "success",
-                    title: "super.",
+                    title: "Your work has been Saved",
+                    showConfirmButton: false,
+                    timer: 1500
                 });
-
-                window.location.href = '../index.html'
+                localStorage.setItem('email', email);
+                window.location.href = '../Pages/DashBoard.html'
             }else{
                 Swal.fire({
                     icon: "error",

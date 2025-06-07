@@ -67,12 +67,7 @@
                 <input type="file" id="navProfileInput" accept="image/*" style="display: none;">
             </div>
             <div class="dropdown">
-                <button class="btn btn-link dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    <i class="fas fa-bell"></i>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">No new notifications</a></li>
-                </ul>
+                <button type="button" id="logout-btn" class="btn btn-danger">Logout</button>
             </div>
         </div>
     </div>
@@ -178,12 +173,8 @@
                     <form id="profileForm">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label">First Name</label>
-                                <input type="text" class="form-control" placeholder="Enter first name" id="firstName">
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" placeholder="Enter last name" id="lastName">
+                                <label class="form-label">Enter Name</label>
+                                <input type="text" class="form-control" placeholder="Enter your name" id="firstName">
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Email</label>
@@ -269,12 +260,9 @@
                     </div>
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="form-label">First Name</label>
-                            <input type="text" class="form-control" placeholder="Enter first name" id="newFirstName" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label class="form-label">Last Name</label>
-                            <input type="text" class="form-control" placeholder="Enter last name" id="newLastName" required>
+                            <label class="form-label">
+                                Name</label>
+                            <input type="text" class="form-control" placeholder="Enter your name" id="newFirstName" required>
                         </div>
                         <div class="col-12">
                             <label class="form-label">Email</label>
@@ -316,6 +304,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="../Js/DashBoard.js"></script>
+<script src="../Js/DashBoard.js"></script>
+
 </body>
 </html>

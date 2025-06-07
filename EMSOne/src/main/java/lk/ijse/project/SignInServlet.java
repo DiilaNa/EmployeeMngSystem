@@ -42,8 +42,6 @@ public class SignInServlet extends HttpServlet {
                 userList.add(user);
             }
 
-            System.out.println("User List " + userList);
-
             BufferedReader br = req.getReader();
             ObjectMapper mapper = new ObjectMapper();
             Map<String, String> frontendData = mapper.readValue(br, Map.class);

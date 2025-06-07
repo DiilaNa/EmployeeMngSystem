@@ -1,27 +1,16 @@
 $(document).ready(function () {
-    // Navigation functionality
     $("a.nav-link").click(function (e) {
         e.preventDefault();
-
-        // Remove active class from all nav links
         $("a.nav-link").removeClass("active");
 
-        // Add active class to clicked nav link
         $(this).addClass("active");
-
-        // Get the target section
         const target = $(this).attr("href");
-        const sectionName = $(this).data("section");
 
         if (!target || target === "#") return;
 
-        // Hide all sections
         $(".section-content").hide();
-
-        // Show target section
         $(target).show();
 
-        // Update page title
         const linkText = $(this).find("span").text();
         $("#pageTitle").text(linkText);
     });
@@ -38,6 +27,15 @@ $(document).ready(function () {
     $("#newEmployeePic").click(function() {
         $("#newEmployeeImageInput").click();
     });
+
+    var email=localStorage.getItem('email');
+    console.log(email)
+    if (email === null) {
+        console.log("email is null")
+        window.location.href = '../Pages/SignIn.html';
+    }else {
+        alert('Welcome to the dashboard, ' + email);
+    }
 
     // Handle image uploads
     $("#navProfileInput, #profileImageInput, #newEmployeeImageInput").change(function(e) {
@@ -57,41 +55,12 @@ $(document).ready(function () {
             reader.readAsDataURL(file);
         }
     });
-
-    // Profile form submission
-    $("#profileForm").submit(function(e) {
-        e.preventDefault();
-        alert("Profile updated successfully!");
-    });
 });
 
-// Additional functions for employee management
-function showAddEmployeeModal() {
-    $("#addEmployeeModal").modal('show');
-}
-
-function addEmployee() {
-    // Basic form validation
-    const firstName = $("#newFirstName").val();
-    const lastName = $("#newLastName").val();
-    const email = $("#newEmail").val();
-    const department = $("#newDepartment").val();
-    const position = $("#newPosition").val();
-    const salary = $("#newSalary").val();
-
-    if (!firstName || !lastName || !email || !department || !position || !salary) {
-        alert("Please fill in all required fields.");
-        return;
-    }
-
-    // Here you would typically send the data to your backend
-    alert("Employee added successfully!");
-    $("#addEmployeeModal").modal('hide');
-
-    // Reset form
-    $("#addEmployeeForm")[0].reset();
-    $("#newEmployeePic").attr('src', 'https://via.placeholder.com/80x80/6c757d/ffffff?text=+');
-}
+$('#logout-btn').on('click', function() {
+    localStorage.removeItem('email');
+    window.location.href = '../Pages/SignIn.html';
+});
 
 function toggleSidebar() {
     $("#sidebar").toggleClass('show');
