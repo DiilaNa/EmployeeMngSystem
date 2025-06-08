@@ -5,20 +5,28 @@ function showAddEmployeeModal() {
 
 function addEmployee() {
 
-    let firstName = $("#newFirstName").val();
+    let name = $("#newFirstName").val();
     let email = $("#newEmail").val();
     let department = $("#newDepartment").val();
     let position = $("#newPosition").val();
     let salary = $("#newSalary").val();
+    let phone = $("#newPhone").val();
 
-    if (!firstName  || !email || !department || !position || !salary) {
-        alert("Please fill in all required fields.");
+    if (!name  || !email || !department || !position || !salary || !phone) {
+        Swal.fire({
+            icon: "warning",
+            title: "Missing Info",
+            text: "Please fill in all fields",
+        });
         return;
     }
 
-    alert("Employee added successfully!");
-    $("#addEmployeeModal").modal('hide');
+    $.ajax({
+        url: '',
 
-    $("#addEmployeeForm")[0].reset();
-    $("#newEmployeePic").attr('src', 'https://via.placeholder.com/80x80/6c757d/ffffff?text=+');
+    })
+
+
+
+
 }

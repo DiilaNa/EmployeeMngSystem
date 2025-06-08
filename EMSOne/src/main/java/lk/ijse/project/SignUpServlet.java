@@ -56,7 +56,7 @@ public class SignUpServlet extends HttpServlet {
 
 
         try {
-            Connection connection = ds.getConnection();
+            Connection connection = dataSource.getConnection();
             PreparedStatement stmt = connection.prepareStatement(
                     "INSERT INTO user (uid,name,email, password) VALUES (?, ?, ?, ?)"
             );

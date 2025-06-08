@@ -20,7 +20,7 @@ public class DataSource implements ServletContextListener {
         ds.setMaxTotal(100);
 
         ServletContext sc = sce.getServletContext();
-        sc.setAttribute("dataSource", ds);
+        sc.setAttribute("ds", ds);
 
     }
 
@@ -28,7 +28,7 @@ public class DataSource implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent sce) {
         try {
             ServletContext sc = sce.getServletContext();
-            BasicDataSource ds = (BasicDataSource) sc.getAttribute("dataSource");
+            BasicDataSource ds = (BasicDataSource) sc.getAttribute("ds");
             ds.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);

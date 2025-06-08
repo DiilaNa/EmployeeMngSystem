@@ -9,7 +9,7 @@ $("#signIN").click(() => {
         contentType: "application/json",
         data: JSON.stringify({email: email, password: password}),
         success: function(resp) {
-            if(resp === "Success") {
+            if(resp.code === '200') {
                 Swal.fire({
                     position: "center",
                     icon: "success",
