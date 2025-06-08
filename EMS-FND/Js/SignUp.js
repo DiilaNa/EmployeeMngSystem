@@ -36,17 +36,19 @@ $('#saveBTN').click(function () {
         contentType: 'application/json',
         data: JSON.stringify(event),
         success: function (response) {
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Successfully SignUP",
-                showConfirmButton: true,
-            }).then((result)=>{
-                if (result.isConfirmed){
-                    window.location.href = '../Pages/SignIn.html'
-                }
+            if (response.code === '201'){
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Successfully SignUP",
+                    showConfirmButton: true,
+                }).then((result)=>{
+                    if (result.isConfirmed){
+                        window.location.href = '../Pages/SignIn.html'
+                    }
 
-            })
+                })
+            }
         },
         error: function () {
             Swal.fire({

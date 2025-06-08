@@ -5,8 +5,8 @@ import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import org.apache.commons.dbcp2.BasicDataSource;
-
 import java.sql.SQLException;
+
 @WebListener
 public class DataSource implements ServletContextListener {
     @Override
@@ -21,7 +21,6 @@ public class DataSource implements ServletContextListener {
 
         ServletContext sc = sce.getServletContext();
         sc.setAttribute("ds", ds);
-
     }
 
     @Override
