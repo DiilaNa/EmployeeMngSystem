@@ -14,7 +14,7 @@ function togglePassword() {
     }
 }
 
-/*------------------Save BTN Action--------------------------------*/
+/*------------------SIGN UP BTN Action--------------------------------*/
 $('#saveBTN').click(function () {
     const event = {
         name: $('#name').val(),
