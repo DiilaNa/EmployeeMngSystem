@@ -13,10 +13,7 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @WebServlet("/signup")
 public class SignUpServlet extends HttpServlet {
@@ -33,6 +30,7 @@ public class SignUpServlet extends HttpServlet {
 
             while (resultSet.next()) {
                 Map<String, String> event = new HashMap<String, String>();
+                event.put("uid", resultSet.getString("uid"));
                 event.put("name", resultSet.getString("name"));
                 event.put("email", resultSet.getString("email"));
                 event.put("password", resultSet.getString("password"));
@@ -60,11 +58,12 @@ public class SignUpServlet extends HttpServlet {
         try {
             Connection connection = ds.getConnection();
             PreparedStatement stmt = connection.prepareStatement(
-                    "INSERT INTO user (name,email, password) VALUES (?, ?, ?)"
+                    "INSERT INTO user (uid,name,email, password) VALUES (?, ?, ?, ?)"
             );
-            stmt.setString(1, user.get("name"));
-            stmt.setString(2, user.get("email"));
-            stmt.setString(3, user.get("password"));
+            stmt.setString(1, UUID.randomUUID().toString());
+            stmt.setString(2, user.get("name"));
+            stmt.setString(3, user.get("email"));
+            stmt.setString(4, user.get("password"));
 
             int rows = stmt.executeUpdate();
             resp.setContentType("application/json");
@@ -84,4 +83,6 @@ public class SignUpServlet extends HttpServlet {
     protected void doOptions(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
+
+
 }
