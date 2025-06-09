@@ -130,5 +130,36 @@ public class MainServlet extends HttpServlet {
             resp.setStatus(500);
         }
     }
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ServletContext sc = getServletContext();
+        BasicDataSource ds = (BasicDataSource) sc.getAttribute("ds");
+
+        String empid = req.getParameter("empid");
+
+        if (empid == null || empid.isEmpty()) {
+            resp.setStatus(400); // Bad request
+            resp.getWriter().write("Missing id");
+            return;
+        }
+
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM employee WHERE empid = ?");
+            ps.setString(1, empid);
+            int rows = ps.executeUpdate();
+
+            if (rows > 0) {
+                resp.setStatus(200);
+            } else {
+                resp.setStatus(404); // Not found
+                resp.getWriter().write("Employee not found");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resp.setStatus(500);
+            resp.getWriter().write("SQL error: " + e.getMessage());
+        }
+    }
+
 
 }

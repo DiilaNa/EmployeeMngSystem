@@ -82,6 +82,7 @@ function loadEmployees() {
                         <td>${emp.empSalary}</td>
                          <td>
                             <button class="btn btn-sm btn-warning" onclick='showEditEmployeeModal(${JSON.stringify(emp)})'> Edit</button>
+                            <button class="btn btn-danger btn-sm" onclick="deleteEmployee('${emp.empid}')">Delete</button>
                          </td>
                     </tr>`;
                 tbody.append(row);
@@ -123,4 +124,31 @@ function updateEmployee() {
         }
     });
 }
+/*---------------Delete Employee--------------------------*/
+function deleteEmployee(empid) {
+    Swal.fire({
+        title: "Are you sure?",
+        text: "This employee will be permanently deleted.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: 'http://localhost:8080/EMSOne_Web_exploded/dashboard?empid=' + empid,
+                method: 'DELETE',
+                success: function () {
+                    Swal.fire("Deleted!", "Employee has been deleted.", "success");
+                    loadEmployees();
+                },
+                error: function () {
+                    Swal.fire("Error", "Delete failed", "error");
+                }
+            });
+        }
+    });
+}
+
 
