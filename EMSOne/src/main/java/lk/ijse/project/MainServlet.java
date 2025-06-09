@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @WebServlet("/dashboard")
 public class MainServlet extends HttpServlet {
@@ -39,7 +39,6 @@ public class MainServlet extends HttpServlet {
             stmt.setString(5, emp.get("position"));
             stmt.setString(6, emp.get("phone"));
             stmt.setString(7, emp.get("salary"));
-            System.out.println("servlet eke nama = "+emp.get("empName"));
             PrintWriter out = resp.getWriter();
             resp.setContentType("application/json");
             if (stmt.executeUpdate() > 0){
@@ -79,6 +78,30 @@ public class MainServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            ServletContext sc = getServletContext();
+            BasicDataSource ds = (BasicDataSource) sc.getAttribute("ds");
+            Connection connection = ds.getConnection();
 
+            ResultSet rs = connection.prepareStatement("SELECT * FROM employee").executeQuery();
+
+            List<Map<String,String>> employees = new ArrayList<>();
+            while (rs.next()){
+                Map<String,String> emp = new HashMap<>();
+                emp.put("empid", rs.getString("empid"));
+                emp.put("empName", rs.getString("empName"));
+                emp.put("empMail", rs.getString("empMail"));
+                emp.put("empDepartment", rs.getString("empDepartment"));
+                emp.put("empPosition", rs.getString("empPosition"));
+                emp.put("empPhone", rs.getString("empPhone"));
+                emp.put("empSalary", rs.getString("empSalary"));
+                employees.add(emp);
+            }
+            resp.setContentType("application/json");
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.writeValue(resp.getWriter(),employees);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

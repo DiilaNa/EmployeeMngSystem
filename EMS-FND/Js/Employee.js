@@ -1,7 +1,11 @@
+$(Document).ready(function () {
+    loadEmployees();
+})
+/*-------------show Employee Form------------------------*/
 function showAddEmployeeModal() {
     $("#addEmployeeModal").modal('show');
 }
-
+/*---------------Save Employee-------------------------------*/
 function addEmployee() {
     const event = {
          name : $('#newFirstName').val(),
@@ -11,8 +15,6 @@ function addEmployee() {
          phone : $('#newPhone').val(),
          salary : $('#newSalary').val(),
     };
-
-    console.log(event.name)
 
     if (!event.name  || !event.email || !event.department || !event.position || !event.salary || !event.phone) {
         Swal.fire({
@@ -48,3 +50,36 @@ function addEmployee() {
         }
     })
 }
+
+/*------------Load Table----------------*/
+function loadEmployees() {
+    $.ajax({
+        url: 'http://localhost:8080/EMSOne_Web_exploded/dashboard',
+        method: 'GET',
+        success: function (employees) {
+            const tbody = $("#tbody");
+            tbody.empty(); // Clear existing rows
+
+            employees.forEach(emp => {
+                const row = `
+                    <tr>
+                        <td>${emp.empName}</td>
+                        <td>${emp.empMail}</td>
+                        <td>${emp.empDepartment}</td>
+                        <td>${emp.empPosition}</td>
+                        <td>${emp.empPhone}</td>
+                        <td>${emp.empSalary}</td>
+                    </tr>`;
+                tbody.append(row);
+            });
+        },
+        error: function () {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Failed to load employee data!",
+            });
+        }
+    });
+}
+
