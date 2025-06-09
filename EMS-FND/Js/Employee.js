@@ -5,6 +5,17 @@ $(Document).ready(function () {
 function showAddEmployeeModal() {
     $("#addEmployeeModal").modal('show');
 }
+function showEditEmployeeModal(emp) {
+    $('#updateEmployeeModal').modal('show');
+    $('#editEmpId').val(emp.empid);  // hidden input
+    $('#editFirstName').val(emp.name);
+    $('#editEmail').val(emp.email);
+    $('#editDepartment').val(emp.department);
+    $('#editPosition').val(emp.position);
+    $('#editPhone').val(emp.phone);
+    $('#editSalary').val(emp.salary);
+}
+
 /*---------------Save Employee-------------------------------*/
 function addEmployee() {
     const event = {
@@ -69,6 +80,9 @@ function loadEmployees() {
                         <td>${emp.empPosition}</td>
                         <td>${emp.empPhone}</td>
                         <td>${emp.empSalary}</td>
+                         <td>
+                            <button class="btn btn-sm btn-warning" onclick='showEditEmployeeModal(${JSON.stringify(emp)})'> Edit</button>
+                         </td>
                     </tr>`;
                 tbody.append(row);
             });
@@ -82,4 +96,5 @@ function loadEmployees() {
         }
     });
 }
+/*-------------------------Update Employee-----------------------------*/
 
