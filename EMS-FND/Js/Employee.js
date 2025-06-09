@@ -7,13 +7,13 @@ function showAddEmployeeModal() {
 }
 function showEditEmployeeModal(emp) {
     $('#updateEmployeeModal').modal('show');
-    $('#editEmpId').val(emp.empid);  // hidden input
-    $('#editFirstName').val(emp.name);
-    $('#editEmail').val(emp.email);
-    $('#editDepartment').val(emp.department);
-    $('#editPosition').val(emp.position);
-    $('#editPhone').val(emp.phone);
-    $('#editSalary').val(emp.salary);
+    $('#updateEmployeeId').val(emp.empid);  // hidden input
+    $('#updateFirstName').val(emp.empName);
+    $('#updateEmail').val(emp.empMail);
+    $('#updateDepartment').val(emp.empDepartment);
+    $('#updatePosition').val(emp.empPosition);
+    $('#updatePhone').val(emp.empPhone);
+    $('#updateSalary').val(emp.empSalary);
 }
 
 /*---------------Save Employee-------------------------------*/
@@ -97,4 +97,30 @@ function loadEmployees() {
     });
 }
 /*-------------------------Update Employee-----------------------------*/
+function updateEmployee() {
+    const updatedEmployee = {
+        empid: $('#updateEmployeeId').val(),
+        name: $('#updateFirstName').val(),
+        email: $('#updateEmail').val(),
+        department: $('#updateDepartment').val(),
+        position: $('#updatePosition').val(),
+        salary: $('#updateSalary').val(),
+        phone: $('#updatePhone').val()
+    };
+    console.log(updatedEmployee)
+    $.ajax({
+        url: 'http://localhost:8080/EMSOne_Web_exploded/dashboard',
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(updatedEmployee),
+        success: function () {
+            Swal.fire("Updated!", "Employee updated successfully.", "success");
+            $('#updateEmployeeModal').modal('hide');
+            loadEmployees(); // refresh the table
+        },
+        error: function () {
+            Swal.fire("Error", "Update failed", "error");
+        }
+    });
+}
 

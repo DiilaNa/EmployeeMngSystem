@@ -104,4 +104,31 @@ public class MainServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        ServletContext sc = getServletContext();
+        BasicDataSource ds = (BasicDataSource) sc.getAttribute("ds");
+
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> emp = mapper.readValue(req.getReader(), Map.class);
+
+        try (Connection conn = ds.getConnection()) {
+            PreparedStatement ps = conn.prepareStatement(
+                    "UPDATE employee SET empName=?, empMail=?, empDepartment=?, empPosition=?, empPhone=?, empSalary=? WHERE empid=?"
+            );
+            ps.setString(1, emp.get("name"));
+            ps.setString(2, emp.get("email"));
+            ps.setString(3, emp.get("department"));
+            ps.setString(4, emp.get("position"));
+            ps.setString(5, emp.get("phone"));
+            ps.setString(6, emp.get("salary"));
+            ps.setString(7, emp.get("empid"));
+            ps.executeUpdate();
+            resp.setStatus(200);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            resp.setStatus(500);
+        }
+    }
+
 }
