@@ -189,6 +189,50 @@ body {
 .btn-primary:hover {
     background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
 }
+/*------------Table Css----------------*/
+.table {
+    margin: 0;
+    border: none;
+    background: white;
+}
+
+.table thead th {
+    background: linear-gradient(135deg, #4f46e5, #6366f1);
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border: none;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.table tbody tr:hover {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border: none;
+    color: #1e293b;
+}
+
+.table-responsive {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
 
 @media (max-width: 768px) {
     .sidebar {
@@ -201,5 +245,14 @@ body {
 
     .main-content {
         margin-left: 0;
+    }
+    .table thead th {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .table tbody td {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.875rem;
     }
 }

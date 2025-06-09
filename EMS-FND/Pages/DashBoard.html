@@ -142,12 +142,30 @@
             <div class="p-3 border-bottom">
                 <h5 class="mb-0">All Employees</h5>
             </div>
-            <div id="employeesTableContainer">
+         <!--   <div id="employeesTableContainer">
                 <div class="empty-state">
                     <i class="fas fa-user-friends"></i>
                     <h5>No employees found</h5>
                     <p>Click "Add Employee" to get started.</p>
                 </div>
+            </div>-->
+            <div class="table-responsive">
+                <table class="table table-bordered border-primary">
+                    <thead>
+                    <tr>
+                      <!--  <th scope="col">ID</th>-->
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Position</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Salary</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tbody">
+                    <!-- Empty table body - ready for dynamic content -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
