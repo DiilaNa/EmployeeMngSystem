@@ -34,21 +34,20 @@ public class SignInServlet extends HttpServlet {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE email=? AND password=?");
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
             resp.setContentType("application/json");
             PrintWriter out = resp.getWriter();
 
-            if (resultSet.next()) {
-                resp.setStatus(HttpServletResponse.SC_OK);
+            if (preparedStatement.executeUpdate()>0) {
+                resp.setStatus(200);
                 mapper.writeValue(out,Map.of(
                         "code","200",
                         "status","Login Success",
                         "message","Login Success"
                 ));
             }else {
-                resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                resp.setStatus(401);
                 mapper.writeValue(out,Map.of(
                         "code","401",
                         "status","Unauthorized",

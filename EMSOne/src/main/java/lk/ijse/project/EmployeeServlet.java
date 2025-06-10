@@ -39,8 +39,11 @@ public class EmployeeServlet extends HttpServlet {
             stmt.setString(5, emp.get("position"));
             stmt.setString(6, emp.get("phone"));
             stmt.setString(7, emp.get("salary"));
+            stmt.executeUpdate();
+
             PrintWriter out = resp.getWriter();
             resp.setContentType("application/json");
+
             if (stmt.executeUpdate() > 0){
                 resp.setStatus(HttpServletResponse.SC_CREATED);
                 mapper.writeValue(out,Map.of(
