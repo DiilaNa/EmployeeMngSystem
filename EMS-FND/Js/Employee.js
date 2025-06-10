@@ -108,7 +108,6 @@ function updateEmployee() {
         salary: $('#updateSalary').val(),
         phone: $('#updatePhone').val()
     };
-    console.log(updatedEmployee)
     $.ajax({
         url: 'http://localhost:8080/EMSOne_Web_exploded/dashboard',
         method: 'PUT',
@@ -117,7 +116,7 @@ function updateEmployee() {
         success: function () {
             Swal.fire("Updated!", "Employee updated successfully.", "success");
             $('#updateEmployeeModal').modal('hide');
-            loadEmployees(); // refresh the table
+            loadEmployees();
         },
         error: function () {
             Swal.fire("Error", "Update failed", "error");

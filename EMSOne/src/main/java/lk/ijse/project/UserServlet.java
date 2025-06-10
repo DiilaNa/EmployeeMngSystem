@@ -1,6 +1,7 @@
 package lk.ijse.project;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -52,21 +53,43 @@ public class UserServlet extends HttpServlet {
                         "password", rs.getString("password")
                 );
 
-                resp.setStatus(HttpServletResponse.SC_OK);
+                resp.setStatus(200);
                 mapper.writeValue(resp.getWriter(), user);
             } else {
-                resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                resp.setStatus(401);
                 mapper.writeValue(resp.getWriter(), Map.of(
                         "status", "error",
                         "message", "User not found"
                 ));
             }
         } catch (SQLException e) {
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setStatus(500);
             mapper.writeValue(resp.getWriter(), Map.of(
                     "status", "error",
                     "message", e.getMessage()
             ));
+        }
+    }
+
+    @Override
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Map<String, String> map = mapper.readValue(req.getInputStream(), Map.class);
+
+            ServletContext sc = getServletContext();
+            BasicDataSource ds = (BasicDataSource) sc.getAttribute("ds");
+
+            Connection connection = ds.getConnection();
+            PreparedStatement ps = connection.prepareStatement("UPDATE user SET name = ?, email = ?, password = ? WHERE email = ?");
+            ps.setString(1, map.get("name"));
+            ps.setString(2, map.get("email"));
+            ps.setString(3, map.get("password"));
+            ps.executeUpdate();
+            resp.setStatus(200);
+        } catch (Exception e) {
+            resp.setStatus(500);
+            throw new RuntimeException(e);
         }
     }
 }

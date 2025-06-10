@@ -15,7 +15,7 @@ $(document).ready(function () {
         $("#pageTitle").text(linkText);
     });
     checkMailBeforeLogin();
-    setUserName();
+    setUserData();
 });
 
 /*----------------Log Out BTN Action---------------------------*/
@@ -37,8 +37,8 @@ function checkMailBeforeLogin() {
         alert('Welcome to the dashboard, ' + email);
     }
 }
-/*-----------Set User Name-------------------------------------*/
-function setUserName() {
+/*---------------------------Set User Data---------------------------------*/
+function setUserData() {
     const userEmail = localStorage.getItem('email');
 
     $.ajax({
@@ -57,3 +57,27 @@ function setUserName() {
     });
 
 }
+/*------------------------Update User Data---------------------------------------*/
+$('#updateProfileBTN').on(function () {
+        const updateUser = {
+          userName: $('#displayName').val(),
+          userMail: $('#displayEmail').val(),
+          password: $('#displayPassword').val()
+        };
+
+        $.ajax({
+            url: 'http://localhost:8080/EMSOne_Web_exploded/user',
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(updateUser),
+            success: function (){
+                Swal.fire("Updated!", "Employee updated successfully.", "success");
+                setUserData()
+                // let userMail = $('#displayEmail').val();
+                // localStorage.setItem('email',userMail)
+            },
+            error: function () {
+                Swal.fire("Error", "Update failed", "error");
+            }
+        })
+});

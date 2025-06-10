@@ -20,11 +20,20 @@ $("#signIN").click(() => {
                 localStorage.setItem('email', email);
                 window.location.href = '../Pages/DashBoard.html'
             }else{
-                Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: "User Credentials are wrong!",
-                });
+                if (resp ==='401'){
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "User Credentials are wrong!",
+                    });
+                }else {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "User Credentials are wrong!",
+                    });
+
+                }
             }
         }
     })
