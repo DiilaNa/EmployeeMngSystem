@@ -233,6 +233,14 @@ body {
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+.info-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    margin-top: 25px;
+
+}
 
 @media (max-width: 768px) {
     .sidebar {

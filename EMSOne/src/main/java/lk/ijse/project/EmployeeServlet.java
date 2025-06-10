@@ -18,7 +18,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 @WebServlet("/dashboard")
-public class MainServlet extends HttpServlet {
+public class EmployeeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

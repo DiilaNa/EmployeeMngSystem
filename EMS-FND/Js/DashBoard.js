@@ -15,6 +15,7 @@ $(document).ready(function () {
         $("#pageTitle").text(linkText);
     });
     checkMailBeforeLogin();
+    setUserName();
 });
 
 /*----------------Log Out BTN Action---------------------------*/
@@ -35,4 +36,24 @@ function checkMailBeforeLogin() {
     }else {
         alert('Welcome to the dashboard, ' + email);
     }
+}
+/*-----------Set User Name-------------------------------------*/
+function setUserName() {
+    const userEmail = localStorage.getItem('email');
+
+    $.ajax({
+        url: 'http://localhost:8080/EMSOne_Web_exploded/user',
+        method: "GET",
+        data: { email: userEmail },
+        success: function(data) {
+            $('#displayUserName').text(data.name);
+            $('#displayName').val(data.name);
+            $('#displayEmail').val(data.email);
+            $('#displayPassword').val(data.password);
+        },
+        error: function(xhr) {
+            console.error("Failed to load user name:", xhr.responseJSON?.message || xhr.statusText);
+        }
+    });
+
 }
