@@ -43,7 +43,7 @@ function addEmployee() {
         contentType: 'application/json',
         data: JSON.stringify(event),
         success: function (response) {
-            if (response.code === '201'){
+            if (response.code === '200'){
                 Swal.fire({
                     position: "center",
                     icon: "success",

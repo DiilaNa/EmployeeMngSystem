@@ -45,14 +45,14 @@ public class EmployeeServlet extends HttpServlet {
             resp.setContentType("application/json");
 
             if (stmt.executeUpdate() > 0){
-                resp.setStatus(HttpServletResponse.SC_CREATED);
+                resp.setStatus(200);
                 mapper.writeValue(out,Map.of(
-                        "code","201",
+                        "code","200",
                         "status","success",
                         "message","Employee saved successfully"
                 ));
             }else {
-                resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                resp.setStatus(401);
                 mapper.writeValue(out,Map.of(
                         "code","400",
                         "status","error",
@@ -64,7 +64,7 @@ public class EmployeeServlet extends HttpServlet {
             ObjectMapper mapper = new ObjectMapper();
             PrintWriter out = resp.getWriter();
             resp.setContentType("application/json");
-            resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            resp.setStatus(500);
             mapper.writeValue(out,Map.of(
                     "code","500",
                     "status","error",

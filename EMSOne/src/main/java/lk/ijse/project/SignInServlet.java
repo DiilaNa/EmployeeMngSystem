@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.dbcp2.BasicDataSource;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -34,36 +35,36 @@ public class SignInServlet extends HttpServlet {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE email=? AND password=?");
             preparedStatement.setString(1, email);
             preparedStatement.setString(2, password);
-            preparedStatement.execute();
+            ResultSet resultSet = preparedStatement.executeQuery();
 
             resp.setContentType("application/json");
             PrintWriter out = resp.getWriter();
 
-            if (preparedStatement.executeUpdate()>0) {
+            if (resultSet.next()) {
                 resp.setStatus(200);
-                mapper.writeValue(out,Map.of(
-                        "code","200",
-                        "status","Login Success",
-                        "message","Login Success"
+                mapper.writeValue(out, Map.of(
+                        "code", "200",
+                        "status", "Login Success",
+                        "message", "Login Success"
                 ));
-            }else {
+            } else {
                 resp.setStatus(401);
-                mapper.writeValue(out,Map.of(
-                        "code","401",
-                        "status","Unauthorized",
-                        "message","Unauthorized Behaviour"
+                mapper.writeValue(out, Map.of(
+                        "code", "401",
+                        "status", "Unauthorized",
+                        "message", "Unauthorized Behaviour"
 
                 ));
             }
             connection.close();
         } catch (SQLException e) {
-           PrintWriter out = resp.getWriter();
-           mapper.writeValue(out,Map.of(
-                   "code","500",
-                   "status","Error",
-                   "message",e.getMessage()
-           ));
-           throw new RuntimeException(e);
+            PrintWriter out = resp.getWriter();
+            mapper.writeValue(out, Map.of(
+                    "code", "500",
+                    "status", "Error",
+                    "message", e.getMessage()
+            ));
+            throw new RuntimeException(e);
         }
     }
 }
