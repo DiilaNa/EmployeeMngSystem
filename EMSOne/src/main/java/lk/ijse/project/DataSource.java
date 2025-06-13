@@ -21,6 +21,7 @@ public class DataSource implements ServletContextListener {
 
         ServletContext sc = sce.getServletContext();
         sc.setAttribute("ds", ds);
+
     }
 
     @Override
